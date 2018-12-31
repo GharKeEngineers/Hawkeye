@@ -16,9 +16,22 @@ import imutils
 import time
 import dlib
 import cv2
+import Alert
+
+
+alert_no = 0
+
 
 def alert():
+    global alert_no
     print("Alert!!!!")
+    if alert_no == 1:
+        Alert.ledAlert()
+    elif alert_no == 2:
+        Alert.soundAlert()
+    elif alert_no == 3:
+        Alert.electricAlert()
+        alert_no = 0
 
 def eye_aspect_ratio(eye):
     # compute the euclidean distances between the two sets of
@@ -134,6 +147,7 @@ while True:
         if start_time > 60:
             if TOTAL > 20:
                 alert()
+                alert_no += 1
             TOTAL = 0
             start_time = time.time()
         print(start_time)
